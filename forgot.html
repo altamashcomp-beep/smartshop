@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartShop | Forgot Password</title>
+  <link rel="icon" type="image/png" href="image.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --primary-light: #8B85FF;
+      --accent: #42D8FF;
+      --dark-bg: #1e1e2f;
+      --light-bg: #f9f9fc;
+      --dark-card: #2c2c3e;
+      --light-card: #fff;
+      --dark-text: #f0f0f0;
+      --light-text: #111;
+      --glow: linear-gradient(135deg, #6C63FF, #42D8FF);
+      --success: #4CAF50;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: var(--light-text);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-x: hidden;
+    }
+
+    .dark body {
+      background: var(--dark-bg);
+      color: var(--dark-text);
+    }
+
+    /* Container */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      opacity: 0.03;
+      animation: float 20s infinite linear;
+    }
+
+    .bg-circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .bg-circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: 10%;
+      animation-delay: -5s;
+    }
+
+    .bg-circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      33% {
+        transform: translateY(-30px) rotate(120deg);
+      }
+      66% {
+        transform: translateY(30px) rotate(240deg);
+      }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      background: var(--light-card);
+      border-radius: 24px;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width: 1000px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      animation: cardEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+      z-index: 2;
+    }
+
+    @keyframes cardEntrance {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dark .card {
+      background: var(--dark-card);
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Illustration Section */
+    .illustration {
+      background: var(--glow);
+      color: #fff;
+      padding: 50px 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .illustration::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .illustration svg {
+      width: 180px;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .illustration h1 {
+      font-size: 2.5rem;
+      margin-top: 10px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .illustration p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* Form Section */
+    .form-section {
+      flex: 1;
+      padding: 60px 50px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      background: var(--glow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .form-section .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 35px;
+      line-height: 1.5;
+    }
+
+    .dark .form-section .subtitle {
+      color: #aaa;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      position: relative;
+      margin-bottom: 35px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px 12px 16px 0;
+      border: none;
+      border-bottom: 2px solid #e0e0e0;
+      background: transparent;
+      font-size: 16px;
+      color: inherit;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .form-group input {
+      border-bottom-color: #444;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 0;
+      top: 16px;
+      color: #999;
+      pointer-events: none;
+      transition: all 0.3s linear;
+      font-weight: 500;
+    }
+
+    .dark .form-group label {
+      color: #888;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -8px;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .form-group input:focus {
+      border-bottom: 2px solid transparent;
+      background-image: var(--glow);
+      background-size: 100% 2px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      animation: glowline 0.6s linear forwards;
+    }
+
+    @keyframes glowline {
+      0% {
+        background-size: 0% 2px;
+        background-position: 0% 100%;
+      }
+      100% {
+        background-size: 100% 2px;
+        background-position: 0% 100%;
+      }
+    }
+
+    /* Button */
+    .swipe-button {
+      position: relative;
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--glow);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .swipe-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .swipe-button:hover::before {
+      left: 100%;
+    }
+
+    .swipe-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(108, 99, 255, 0.4);
+    }
+
+    .swipe-button:active {
+      transform: translateY(-1px);
+    }
+
+    /* Back to Login */
+    .back-login {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-login a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .back-login a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .back-login a:hover::after {
+      width: 100%;
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-message p {
+      color: var(--success);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dark Mode Toggle */
+    .toggle-dark {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      font-size: 14px;
+      background: #f0f0f0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+      z-index: 10;
+    }
+
+    .dark .toggle-dark {
+      background: #444;
+      color: #fff;
+      border-color: #555;
+    }
+
+    .toggle-dark:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .card {
+        flex-direction: column;
+        max-width: 500px;
+      }
+      .illustration {
+        padding: 40px 30px;
+      }
+      .form-section {
+        padding: 40px 30px;
+      }
+      .toggle-dark {
+        top: 15px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+      .illustration, .form-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <!-- Illustration Section -->
+      <div class="illustration">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12l-8 8-8-8" stroke="#fff" stroke-width="2"/>
+          <path d="M12 4v16" stroke="#fff" stroke-width="2"/>
+          <rect x="4" y="28" width="16" height="32" rx="2" stroke="#fff" stroke-width="2"/>
+          <path d="M44 12l-8 8-8-8" stroke="#fff" stroke-width="2"/>
+          <path d="M36 4v16" stroke="#fff" stroke-width="2"/>
+          <rect x="28" y="28" width="16" height="32" rx="2" stroke="#fff" stroke-width="2"/>
+        </svg>
+
+        <h1>Reset Password</h1>
+        <p>Don't worry, we'll help you get back into your account</p>
+        <p>Enter your email and we'll send you reset instructions</p>
+      </div>
+
+      <!-- Form Section -->
+      <div class="form-section">
+        <div class="toggle-dark" id="toggleDark">🌙 Dark</div>
+        
+        <h2>Forgot Password?</h2>
+        <p class="subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+
+        <form id="forgotForm">
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder=" " required />
+            <label for="email">Email address</label>
+          </div>
+
+          <button class="swipe-button" type="submit">Send Reset Link</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+          <p>✓ Reset instructions sent to your email!</p>
+        </div>
+
+        <div class="back-login">
+          <a href="login.html">← Back to Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleDark = document.getElementById('toggleDark');
+    const forgotForm = document.getElementById('forgotForm');
+    const successMessage = document.getElementById('successMessage');
+    
+    // Check for saved theme or system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('smartshop-theme');
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+      toggleDark.textContent = '☀️ Light';
+    } else {
+      toggleDark.textContent = '🌙 Dark';
+    }
+
+    // Toggle function
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      
+      if (document.documentElement.classList.contains('dark')) {
+        toggleDark.textContent = '☀️ Light';
+        localStorage.setItem('smartshop-theme', 'dark');
+      } else {
+        toggleDark.textContent = '🌙 Dark';
+        localStorage.setItem('smartshop-theme', 'light');
+      }
+    }
+
+    // Form submission
+    forgotForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show success message
+      successMessage.classList.add('show');
+      
+      // Reset form
+      setTimeout(() => {
+        forgotForm.reset();
+      }, 1000);
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 5000);
+    });
+
+    toggleDark.addEventListener('click', toggleDarkMode);
+  </script>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="image.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartShop | Register</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --primary-light: #8b85ff;
+      --primary-dark: #5a52d9;
+      --accent: #42d8ff;
+      --glow: linear-gradient(135deg, #6c63ff, #42d8ff);
+      --bg: #f8f9fd;
+      --text: #222;
+      --dark-bg: #1e1e2f;
+      --dark-card: #2c2c3e;
+      --dark-text: #f0f0f0;
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    body.dark {
+      background: var(--dark-bg);
+      color: var(--dark-text);
+    }
+
+    /* Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      opacity: 0.03;
+      animation: float 20s infinite linear;
+    }
+
+    .bg-circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .bg-circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: 10%;
+      animation-delay: -5s;
+    }
+
+    .bg-circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      33% {
+        transform: translateY(-30px) rotate(120deg);
+      }
+      66% {
+        transform: translateY(30px) rotate(240deg);
+      }
+    }
+
+    .container {
+      display: flex;
+      width: 1000px;
+      max-width: 95%;
+      height: 600px;
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      transition: background 0.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    body.dark .container {
+      background: var(--dark-card);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Dark Mode Toggle */
+    .toggle-dark {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: #f0f0f0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    body.dark .toggle-dark {
+      background: #444;
+      color: #fff;
+      border-color: #555;
+    }
+
+    .toggle-dark:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Left Side - Register Form */
+    .form-section {
+      background-color: transparent;
+      flex: 1;
+      padding: 60px 50px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section h2 {
+      font-size: 2.2rem;
+      background: var(--glow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 35px;
+      font-weight: 700;
+    }
+
+    /* Floating Labels and Glow Inputs */
+    .form-group {
+      position: relative;
+      margin-bottom: 35px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px 12px 16px 0;
+      border: none;
+      border-bottom: 2px solid #e0e0e0;
+      background: transparent;
+      font-size: 16px;
+      color: inherit;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body.dark .form-group input {
+      border-bottom-color: #444;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 0;
+      top: 16px;
+      color: #999;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    body.dark .form-group label {
+      color: #888;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -8px;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .form-group input:focus {
+      border-bottom: 2px solid transparent;
+      background-image: var(--glow);
+      background-size: 100% 2px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      animation: glowline 0.6s linear forwards;
+    }
+
+    @keyframes glowline {
+      0% {
+        background-size: 0% 2px;
+        background-position: 0% 100%;
+      }
+      100% {
+        background-size: 100% 2px;
+        background-position: 0% 100%;
+      }
+    }
+
+    /* Password Strength Indicator */
+    .password-strength {
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Button */
+    .register-btn {
+      position: relative;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: var(--glow);
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .register-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .register-btn:hover::before {
+      left: 100%;
+    }
+
+    .register-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(108, 99, 255, 0.4);
+    }
+
+    .register-btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-message p {
+      color: var(--success);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Right Side - Illustration */
+    .illustration {
+      flex: 1;
+      background: var(--glow);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .illustration::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .illustration svg {
+      width: 180px;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .illustration h3 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .illustration p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .illustration a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 14px 28px;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      display: inline-block;
+      font-size: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .illustration a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: left 0.5s ease;
+    }
+
+    .illustration a:hover::before {
+      left: 100%;
+    }
+
+    .illustration a:hover {
+      background: #fff;
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        margin: 20px;
+      }
+      .form-section, .illustration {
+        padding: 40px 30px;
+      }
+      .toggle-dark {
+        top: 15px;
+        right: 15px;
+        padding: 8px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 10px;
+      }
+      .form-section, .illustration {
+        padding: 30px 20px;
+      }
+      .toggle-dark {
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+  </div>
+
+  <div class="container">
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-dark" id="toggleDark">
+      <span id="toggleIcon">🌙</span>
+      <span id="toggleText">Dark</span>
+    </div>
+
+    <!-- Left Side - Register Form -->
+    <div class="form-section">
+  <h2>Create Your Account</h2>
+  <form action="connect.php" method="post" id="registerForm">
+    <div class="form-group">
+      <input type="text" id="name" name="fullname" placeholder=" " required />
+      <label for="name">Full Name</label>
+    </div>
+
+    <div class="form-group">
+      <input type="email" id="email" name="email" placeholder=" " required />
+      <label for="email">Email Address</label>
+    </div>
+
+    <div class="form-group">
+      <input type="password" id="password" name="password" placeholder=" " required minlength="6" />
+      <label for="password">Password</label>
+      <div class="password-strength">
+        <div class="strength-bar" id="strengthBar"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="password" id="confirm" name="confirm_password" placeholder=" " required />
+      <label for="confirm">Confirm Password</label>
+    </div>
+      
+    <button class="register-btn" type="submit">Create Account</button>
+  </form>
+
+  <div class="success-message" id="successMessage">
+    <p>✓ Account created successfully! Redirecting...</p>
+  </div>
+</div>
+
+
+    <!-- Right Side -->
+    <div class="illustration">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 12l-8 8-8-8" stroke="#fff" stroke-width="2"/>
+        <path d="M12 4v16" stroke="#fff" stroke-width="2"/>
+        <rect x="4" y="28" width="16" height="32" rx="2" stroke="#fff" stroke-width="2"/>
+        <path d="M44 12l-8 8-8-8" stroke="#fff" stroke-width="2"/>
+        <path d="M36 4v16" stroke="#fff" stroke-width="2"/>
+        <rect x="28" y="28" width="16" height="32" rx="2" stroke="#fff" stroke-width="2"/>
+      </svg>
+
+      <h3>Join SmartShop</h3>
+      <p>Create your account to explore premium products, exclusive deals, and personalized shopping experience.</p>
+      <a href="login.html">Sign In Now →</a>
+    </div>
+  </div>
+
+  <script>
+    const toggleDark = document.getElementById('toggleDark');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const toggleText = document.getElementById('toggleText');
+    const registerForm = document.getElementById('registerForm');
+    const successMessage = document.getElementById('successMessage');
+    const passwordInput = document.getElementById('password');
+    const strengthBar = document.getElementById('strengthBar');
+    
+    // Check for saved theme or prefer-color-scheme
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('smartshop-theme');
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.body.classList.add('dark');
+      toggleIcon.textContent = '☀️';
+      toggleText.textContent = 'Light';
+    } else {
+      toggleIcon.textContent = '🌙';
+      toggleText.textContent = 'Dark';
+    }
+
+    // Toggle dark mode
+    toggleDark.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      
+      if (document.body.classList.contains('dark')) {
+        toggleIcon.textContent = '☀️';
+        toggleText.textContent = 'Light';
+        localStorage.setItem('smartshop-theme', 'dark');
+      } else {
+        toggleIcon.textContent = '🌙';
+        toggleText.textContent = 'Dark';
+        localStorage.setItem('smartshop-theme', 'light');
+      }
+    });
+
+    // Password strength indicator
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+      
+      // Check password strength
+      if (password.length >= 6) strength += 25;
+      if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 25;
+      if (password.match(/\d/)) strength += 25;
+      if (password.match(/[^a-zA-Z\d]/)) strength += 25;
+      
+      // Update strength bar
+      strengthBar.style.width = strength + '%';
+      
+      // Update color based on strength
+      if (strength < 50) {
+        strengthBar.style.background = '#f44336';
+      } else if (strength < 75) {
+        strengthBar.style.background = '#ff9800';
+      } else {
+        strengthBar.style.background = '#4CAF50';
+      }
+    });
+
+    // Form submission
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm').value;
+      
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      // Show success message
+      successMessage.classList.add('show');
+      
+      // Reset form
+      registerForm.reset();
+      strengthBar.style.width = '0%';
+      
+      // Simulate redirect after 2 seconds
+      setTimeout(() => {
+        // In a real application, you would redirect to login page
+        // window.location.href = 'login.html';
+        successMessage.classList.remove('show');
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
